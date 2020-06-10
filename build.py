@@ -2,9 +2,9 @@ from os import walk
 
 def build(name, version, repo, license, dir):
   header = f'''// {name} v{version}
-  // Github {repo}
-  // {license} License
-  '''
+// Github {repo}
+// {license} License
+'''
   source = ''
   for path, dirs, files in walk(dir):
     for file in files:
@@ -19,7 +19,7 @@ def build(name, version, repo, license, dir):
   source = header + clean + '\n'
 
   while '  ' in source: source = source.replace('  ', ' ')
-  open('domi.js', 'w', newline='\n').write(source)
+  return source
 
 if __name__ == '__main__':
   name = 'Domi.js'
@@ -27,4 +27,5 @@ if __name__ == '__main__':
   repo = 'https://github.com/Jakub21/Domi.js'
   license = 'MIT'
   dir = './source'
-  build(name, version, repo, license, dir)
+  source = build(name, version, repo, license, dir)
+  open(name, 'w', newline='\n').write(source)
