@@ -5,6 +5,7 @@ def build(name, version, repo, license, dir):
 // Github {repo}
 // {license} License
 '''
+  forceNewline = ['class', 'var', 'let', 'static']
   source = ''
   for path, dirs, files in walk(dir):
     for file in files:
@@ -13,7 +14,8 @@ def build(name, version, repo, license, dir):
   source = source.replace('\n\n', '\n')
   clean = ''
   for line in source.split('\n'):
-    if 'class ' in line and clean[-1] != '\n': clean += '\n'
+    for word in forceNewline:
+      if line.startswith(word) and not clean.endswith('\n'): clean += '\n'
     if '//' in line: line = line.split('//')[0]
     clean += line
   source = header + clean + '\n'
