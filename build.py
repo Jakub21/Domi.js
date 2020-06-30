@@ -5,7 +5,7 @@ def build(name, version, repo, license, dir):
 // Github {repo}
 // {license} License
 '''
-  forceNewline = ['class', 'var', 'let', 'static']
+  forceNewline = ['class', 'function', 'var', 'let', 'static']
   source = ''
   for path, dirs, files in walk(dir):
     for file in files:
@@ -25,7 +25,7 @@ def build(name, version, repo, license, dir):
 
 if __name__ == '__main__':
   name = 'Domi.js'
-  version = '0.1.0'
+  version = '0.1.1'
   repo = 'https://github.com/Jakub21/Domi.js'
   license = 'MIT'
   dir = './source'
