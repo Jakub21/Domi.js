@@ -10,6 +10,12 @@ class DomStateToggle {
     if (hide && !state) this.element.hidden = true;
     this.enabled = true;
   }
+  static placeholder() {
+    let element = $create('p');
+    element.innerText = 'placeholder';
+    element.hidden = true;
+    return new DomStateToggle(element, false);
+  }
   bind(domi, key) {
     domi.kb.bind(key, (evt) => {this.toggle();});
   }

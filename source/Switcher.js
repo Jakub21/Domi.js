@@ -4,6 +4,7 @@ class Switcher {
     this.current = '';
     this.previous = '';
     this.sections = {};
+    this.menuToggle = DomStateToggle.placeholder();
   }
   setMenuToggle(menuToggle) {
     this.menuToggle = menuToggle;
