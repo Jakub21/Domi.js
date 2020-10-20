@@ -4,10 +4,11 @@ class Switcher {
     this.current = '';
     this.previous = '';
     this.sections = {};
-    this.menuToggle = DomStateToggle.placeholder();
+    this.toggles = {};
   }
-  setMenuToggle(menuToggle) {
-    this.menuToggle = menuToggle;
+  addToggle(name, toggle) {
+    this.toggles[name] = toggle;
+    toggle.off();
   }
   addSection(section) {
     section.switcher = this;
@@ -31,22 +32,25 @@ class Switcher {
 }
 
 class Section {
-  constructor(id, menu=false, onEnter=null, onLeave=null) {
+  constructor(id, element, toggles=[], onEnter=undefined, onLeave=undefined) {
     this.id = id;
-    this.section = $id(id);
-    this.menu = menu;
+    this.section = element;
+    this.toggles = toggles;
     this.onEnter = onEnter;
     this.onLeave = onLeave;
   }
   show() {
     this.section.hidden = false;
     if (this.onEnter != undefined) this.onEnter();
-    if (this.menu) this.switcher.menuToggle.enable();
-    else this.switcher.menuToggle.disable();
+    for (var toggle of this.toggles) {
+      toggle.on();
+    }
   }
   hide(auto=false) {
     this.section.hidden = true;
-    this.switcher.menuToggle.off();
+    for (var toggle of this.toggles) {
+      toggle.off();
+    }
     if (this.onLeave != undefined && !auto) this.onLeave();
   }
 }

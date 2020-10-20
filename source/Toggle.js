@@ -1,14 +1,12 @@
-
 class DomStateToggle {
-  constructor(element, state, trueClass=null, falseClass=null, hide=false) {
+  constructor(element, state=true, options={}) {
     this.element = element;
-    this.state = state;
-    this.trueClass = trueClass;
-    this.falseClass = falseClass;
-    this.hide = hide;
-    this.element.classList.add(state ? trueClass : falseClass);
-    if (hide && !state) this.element.hidden = true;
+    this.state = true;
+    this.trueClass = options.trueClass;
+    this.falseClass = options.falseClass;
+    this.hide = options.hide;
     this.enabled = true;
+    if (state) this.toggle();
   }
   static placeholder() {
     let element = $create('p');
@@ -30,6 +28,7 @@ class DomStateToggle {
     this.state = !this.state;
     this.element.classList.toggle(this.trueClass);
     this.element.classList.toggle(this.falseClass);
+    if (this.hide) this.element.hidden = !this.state;
   }
   on() {
     if (!this.enabled) return;
