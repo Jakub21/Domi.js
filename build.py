@@ -25,7 +25,7 @@ def build(name, version, repo, license, dir):
 
 if __name__ == '__main__':
   name = 'Domi.js'
-  version = '0.1.1'
+  version = '0.2'
   repo = 'https://github.com/Jakub21/Domi.js'
   license = 'MIT'
   dir = './source'
