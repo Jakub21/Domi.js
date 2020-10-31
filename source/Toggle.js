@@ -6,7 +6,12 @@ class DomStateToggle {
     this.falseClass = options.falseClass;
     this.hide = options.hide;
     this.enabled = true;
-    if (state) this.toggle();
+    if (state) {
+      this.element.classList.add(options.trueClass);
+      this.toggle();
+    } else {
+      this.element.classList.add(options.falseClass);
+    }
   }
   static placeholder() {
     let element = $create('p');
