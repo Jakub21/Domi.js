@@ -7,6 +7,11 @@ let $create = (tag, id=undefined) => {
   if (id != undefined) elm.id = id;
   return elm;
 }
+let $text = (text, id=undefined) => {
+  let elm = document.createTextNode(text);
+  if (id != undefined) elm.id = id;
+  return elm;
+}
 let $on = (elm, key, cb) => { elm.addEventListener(key, cb); }
 let $empty = (elm) => {
   while (elm.lastChild) { elm.removeChild(elm.lastChild); }
