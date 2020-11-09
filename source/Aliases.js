@@ -2,6 +2,7 @@ let $id = (id) => { return document.getElementById(id); }
 let $cn = (cn) => { return document.getElementsByClassName(cn); }
 let $tag = (tag) => { return document.getElementsByTagName(tag); }
 let $qr = (query) => { return document.querySelector(query); }
+let $remove = (elm) => { elm.parentNode.removeChild(elm); };
 let $create = (tag, id=undefined) => {
   let elm = document.createElement(tag);
   if (id != undefined) elm.id = id;
