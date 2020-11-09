@@ -31,7 +31,7 @@ def build(name, version, repo, license, dir, forceBefore=[], forceAfter=[], mini
 
 if __name__ == '__main__':
   name = 'Domi.js'
-  version = '0.2'
+  version = '0.2.1'
   repo = 'https://github.com/Jakub21/Domi.js'
   license = 'MIT'
   dir = './source'
