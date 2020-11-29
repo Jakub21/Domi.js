@@ -1,16 +1,20 @@
-class DomStateToggle {
+
+class DomToggle {
   constructor(element, state=true, options={}) {
     this.element = element;
     this.state = true;
     this.trueClass = options.trueClass;
     this.falseClass = options.falseClass;
     this.hide = options.hide;
+    this.invertHide = options.invertHide;
     this.enabled = true;
     if (state) {
-      this.element.classList.add(options.trueClass);
-      this.toggle();
+      if (options.falseClass != undefined)
+        this.element.classList.add(options.falseClass);
     } else {
-      this.element.classList.add(options.falseClass);
+      if (options.trueClass != undefined)
+        this.element.classList.add(options.trueClass);
+      this.toggle();
     }
   }
   static placeholder() {
@@ -18,6 +22,10 @@ class DomStateToggle {
     element.innerText = 'placeholder';
     element.hidden = true;
     return new DomStateToggle(element, false);
+  }
+  setHidenFlag(state) {
+    if (this.invertHide) state = !state;
+    this.element.hidden = state;
   }
   bind(domi, key) {
     domi.kb.bind(key, (evt) => {this.toggle();});
@@ -31,24 +39,28 @@ class DomStateToggle {
   toggle() {
     if (!this.enabled) return;
     this.state = !this.state;
-    this.element.classList.toggle(this.trueClass);
-    this.element.classList.toggle(this.falseClass);
-    if (this.hide) this.element.hidden = !this.state;
+    if (this.trueClass != undefined)
+      this.element.classList.toggle(this.trueClass);
+    if (this.falseClass != undefined)
+      this.element.classList.toggle(this.falseClass);
+    if (this.hide) this.setHidenFlag(!this.state);
   }
   on() {
     if (!this.enabled) return;
     if (this.state) return;
     this.state = true;
-    this.element.classList.add(this.trueClass);
+    if (this.trueClass != undefined)
+      this.element.classList.add(this.trueClass);
     this.element.classList.remove(this.falseClass);
-    if (this.hide) this.element.hidden = false;
+    if (this.hide) this.setHidenFlag(false);
   }
   off() {
     if (!this.enabled) return;
     if (!this.state) return;
     this.state = false;
     this.element.classList.remove(this.trueClass);
-    this.element.classList.add(this.falseClass);
-    if (this.hide) this.element.hidden = true;
+    if (this.falseClass != undefined)
+      this.element.classList.add(this.falseClass);
+    if (this.hide) this.setHidenFlag(true);
   }
 }
