@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Domi.js test</title>
+    <script src="../Domi.js" charset="utf-8"></script>
+    <script src="shp.js" charset="utf-8"></script>
+    <style media="screen">
+      body {
+        margin: 1rem;
+        background-color: #111;
+        color: #FFF;
+        font-family: sans-serif;
+        font-size: 1.15rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="Content"></div>
+  </body>
+  <script>
+
+    $get('#Content').append(
+      $make('div #h1').prop({innerText: 'line 1'}),
+      $make('div #h2').prop({innerText: 'line 2'}),
+      $make('div #h3').prop({innerText: 'line 3'}),
+      $make('div #h4').prop({innerText: 'line 4'}),
+      $make('div #h5').prop({innerText: 'line 5'}),
+      $make('div #h6').prop({innerText: 'line 6'}),
+      ).prepend($make('div #pre').prop({innerText: '- Prepend'}));
+
+    $get('#h2').before($make('div #bef').prop({innerText: '- Before 2'})
+      ).after($make('div #aft').prop({innerText: '- After 2'}));
+
+    $get('#Content').appendShp('$div[#shpApp] {SHP app}')
+      .prependShp('$div[#shpPre] {SHP pre}');
+
+    $get('#h5').beforeShp('$div[#shpBefore] {SHP before 5}')
+      .afterShp('$div[#shpAfter] {SHP after 5}');
+
+  </script>
+</html>

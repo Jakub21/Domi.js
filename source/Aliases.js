@@ -1,42 +1,69 @@
 
-let $id = (id, from=undefined) => {
-  if (from != undefined)
-    return from.querySelector(`#${id}`);
-  return document.getElementById(id);
+let $create = (data) => {
+  let words = data.split(' ');
+  let elm = document.createElement(words[0]);
+  for (let token of words.slice(1)) {
+    let type = token.charAt(0);
+    let name = token.slice(1);
+    switch (type) {
+      case '#':
+        elm.id = name; break;
+      case '.':
+        elm.classList.add(name); break;
+      case '!':
+        elm[name] = true; break;
+      default:
+        throw 'Invalid token';
+    }
+  }
+  return elm;
 }
-let $cn = (cn, from=undefined) => {
-  if (from != undefined)
-    return from.querySelectorAll(`.${cn}`);
-  return document.getElementsByClassName(cn);
+
+let $prop = (elm, config={}) => {
+  for (let [key, val] of Object.entries(config)) {
+    elm[key] = val;
+  }
+  return elm;
 }
-let $tag = (tag, from=undefined) => {
-  if (from != undefined)
-    return from.querySelectorAll(tag);
-  return document.getElementsByTagName(tag);
+
+let $$ = (selector, parent) => {
+  let source = parent || document;
+  return source.querySelectorAll(selector);
 }
-let $qr = (query, from=undefined) => {
-  if (from == undefined)
-    from = document;
-  return from.querySelector(query);
+
+let $ = (selector, parent) => {
+  let result = $$(selector, parent);
+  try { return result[0]; }
+  catch (err) { return result };
+}
+
+let $on = (elm, evtKey, cb) => {
+  if (evtKey.constructor == Array) {
+    for (let k of evtKey) elm.addEventListener(k, cb);
+  } else {
+    elm.addEventListener(evtKey, cb);
+  }
+  return elm;
+}
+
+let $onk = (elm, evtKey, kb, kbKey, cb) => {
+  $on(elm, evtKey, cb);
+  kb.bind(kbKey, cb);
+  return elm;
+}
+
+let $onkIns = (elm, evtKey, kb, kbKey, cb) => {
+  $on(elm, evtKey, cb);
+  kb.bindIns(kbKey, cb);
+  return elm;
 }
 
 let $remove = (elm) => {
   elm.parentNode.removeChild(elm);
 };
 
-let $create = (tag, id=undefined) => {
-  let elm = document.createElement(tag);
-  if (id != undefined) elm.id = id;
-  return elm;
-}
-let $text = (text, id=undefined) => {
-  let elm = document.createTextNode(text);
-  if (id != undefined) elm.id = id;
-  return elm;
-}
-let $on = (elm, key, cb) => {
-  elm.addEventListener(key, cb);
-}
 let $empty = (elm) => {
+  if (elm.lastChild === undefined) return;
   while (elm.lastChild) { elm.removeChild(elm.lastChild); }
+  return elm;
 }

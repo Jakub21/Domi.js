@@ -31,12 +31,12 @@ def build(name, version, repo, license, dir, forceBefore=[], forceAfter=[], mini
 
 if __name__ == '__main__':
   name = 'Domi.js'
-  version = '0.3'
+  version = '1.0.0'
   repo = 'https://github.com/Jakub21/Domi.js'
   license = 'MIT'
   dir = './source'
-  forceBefore = []
-  forceAfter = ['AnimatedSwitcher']
-  minify = True
+  forceBefore = ['ShpMethods']
+  forceAfter = ['AnimatedSwitcher', 'AnimatedNestedSwitcher']
+  minify = False
   source = build(name, version, repo, license, dir, forceBefore, forceAfter, minify)
   open(name, 'w', newline='\n').write(source)

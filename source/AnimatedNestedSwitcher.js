@@ -1,9 +1,9 @@
 
-class NestedSwitcher {
-  constructor(structure, build=true) {
+class AnimatedNestedSwitcher {
+  constructor(structure, animationData, build=true) {
     this.switchers = {};
     this.swStack = [];
-    if (build) this.buildStructure(structure);
+    if (build) this.buildStructure(structure, animationData);
   }
   getPath() {
     let path = '';
@@ -30,18 +30,19 @@ class NestedSwitcher {
   back(switcherID) {
     this.switchers[switcherID].back();
   }
-  buildStructure(structure) {
-    this.switchers.Root = new Switcher();
+  buildStructure(structure, animationData) {
+    this.switchers.Root = new AnimatedSwitcher();
+    this.switchers.Root.setAnimationData(animationData);
     this.swStack.push(this.switchers.Root);
     for (let [ID, section] of Object.entries(structure.children)) {
-      this.buildSection(ID, section);
+      this.buildSection(ID, section, animationData);
     }
     if (structure.default != undefined) {
       this.switchers.Root.goto(structure.default);
     }
     this.swStack.pop();
   }
-  buildSection(ID, data) {
+  buildSection(ID, data, animationData) {
     let swParent = this.swStack[this.swStack.length-1];
     if (data.toggles == undefined) data.toggles = [];
     let section = new Section(ID, data.section, data.toggles,
@@ -51,7 +52,8 @@ class NestedSwitcher {
       $on(data.button, 'click', ()=>{swParent.goto(ID);});
     }
     if (data.children != undefined) {
-      this.switchers[ID] = new Switcher();
+      this.switchers[ID] = new AnimatedSwitcher();
+      this.switchers[ID].setAnimationData(animationData);
       this.swStack.push(this.switchers[ID]);
       for (let [ID, child] of Object.entries(data.children))
         this.buildSection(ID, child);
