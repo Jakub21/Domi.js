@@ -1,6 +1,8 @@
+const ObjectInsert = require('./ObjectInsert');
 
-class ShpMethods {
+module.exports = class ObjectShpInsert extends ObjectInsert {
   constructor() {
+    super();
     try {this.compiler = new ShpCompiler()}
     catch(err) {}
   }

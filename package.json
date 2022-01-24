@@ -1,0 +1,19 @@
+{
+  "name": "@jakub21/domi",
+  "version": "1.0.0",
+  "description": "Set of functions and classes to make work with the DOM more pleasant.",
+  "main": "Domi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jakub21/Domi.js.git"
+  },
+  "author": "Jakub21",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jakub21/Domi.js/issues"
+  },
+  "homepage": "https://github.com/Jakub21/Domi.js#readme"
+}
