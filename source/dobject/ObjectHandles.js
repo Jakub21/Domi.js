@@ -9,12 +9,12 @@ module.exports = class ObjectHandles {
     return this;
   }
   onk(evtKey, kb, kbKey, cb) {
-    $on(evtKey, cb);
+    this.on(evtKey, cb);
     kb.bind(kbKey, cb);
     return this;
   }
   onkIns(evtKey, kb, kbKey, cb) {
-    $on(evtKey, cb);
+    this.on(evtKey, cb);
     kb.bindIns(kbKey, cb);
     return this;
   }

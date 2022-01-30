@@ -3,7 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Domi.js test</title>
-    <script src=".https://unpkg.com/@jakub21/domi" charset="utf-8"></script>
+    <script src="../build/Domi.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      // used by shp v0.1.1
+      const $create = (tag, id) => {
+        return document.createElement(tag);
+      }
+    </script>
     <script src="shp.js" charset="utf-8"></script>
     <style media="screen">
       body {
@@ -13,6 +19,52 @@
         font-family: sans-serif;
         font-size: 1.15rem;
       }
+
+      #Menu {
+        padding: .5em;
+        margin-bottom: .5em;
+        background-color: #BBB;
+        color: #000;
+      }
+      button {
+        font-size: inherit;
+        font-family: inherit;
+      }
+      .Choice {
+        position: relative;
+        transition: all .3s ease;
+        padding: 1em;
+        background-color: #222;
+      }
+
+      #Blink {
+        transition: all .3s ease;
+      }
+      .on {
+        top: 0;
+      }
+      .off {
+        top: 3em;
+        opacity: 0;
+      }
+
+      #Rainbow {
+        transition: color 1s linear;
+      }
+      .a { color: #F00; }
+      .b { color: #FF0; }
+      .c { color: #0F0; }
+      .d { color: #0FF; }
+      .e { color: #88F; }
+      .f { color: #F0F; }
+
+      #InnerChoice1 {
+        padding: .5em; margin: .5em;
+        background-color: #444;
+      }
+      #InnerChoice1 p {
+        color: #F80;
+      }
     </style>
   </head>
   <body>
@@ -20,23 +72,63 @@
   </body>
   <script>
 
-    get('#Content').append(
-      make('div #h1').prop({innerText: 'line 1'}),
-      make('div #h2').prop({innerText: 'line 2'}),
-      make('div #h3').prop({innerText: 'line 3'}),
-      make('div #h4').prop({innerText: 'line 4'}),
-      make('div #h5').prop({innerText: 'line 5'}),
-      make('div #h6').prop({innerText: 'line 6'}),
-      ).prepend(make('div #pre').prop({innerText: '- Prepend'}));
+    $.get('#Content').appendShp(`
+      $p { This demo is built by appending SHP to existing div }
+      $div[#Menu] {
+        $p { The menu demonstrates single choice toggle and keyboard bindings }
+        $button[#Button1] { 1 | Core }
+        $button[#Button2] { 2 | Blink }
+        $button[#Button3] { 3 | Rainbow }
+      }
+      $div[#Choices] {
+        $div[#Choice1 .Choice] {
+          $h2 {Choice 1 - Core}
+          $p { Demonstrate adding elements }
+          $div[#InnerChoice1] { $p{ Initial inner content }}
+        }
+        $div[#Choice2 .Choice] {
+          $h2 {Choice 2 - Blink}
+          $p { Demonstrate general toggle }
+        }
+        $div[#Choice3 .Choice] {
+          $h2 {Choice 3 - Rainbow}
+          $p { Demonstrate style manager }
+        }
+      }
+    `);
 
-    get('#h2').before(make('div #bef').prop({innerText: '- Before 2'})
-      ).after(make('div #aft').prop({innerText: '- After 2'}));
+    // Single-choice toggle
+    let choice = new $toggle.SingleChoice($toggle.AnimHide, 'on', 'off', .3);
+    choice.enableOnDelay(.3);
+    choice.add('first', $.get('#Choice1'));
+    choice.add('second', $.get('#Choice2'));
+    choice.add('third', $.get('#Choice3'));
+    choice.goto('first');
 
-    get('#Content').appendShp('$div[#shpApp] {SHP app}')
-      .prependShp('$div[#shpPre] {SHP pre}');
+    let kb = new $.Keyboard();
+    $.get('#Button1').onk('click', kb, '1', () => {choice.goto('first')});
+    $.get('#Button2').onk('click', kb, '2', () => {choice.goto('second')});
+    $.get('#Button3').onk('click', kb, '3', () => {choice.goto('third')});
 
-    get('#h5').beforeShp('$div[#shpBefore] {SHP before 5}')
-      .afterShp('$div[#shpAfter] {SHP after 5}');
+    // Core
+    let inner1 = $.get('#InnerChoice1');
+    inner1.append($.make('div #AppendChoice1').prop({innerText: 'Append'}));
+    inner1.prepend($.make('div #PrependChoice1').prop({innerText: 'Prepend'}));
+    inner1.before($.make('div #BeforeChoice1').prop({innerText: 'Before'}));
+    inner1.after($.make('div #AfterChoice1').prop({innerText: 'After'}));
+
+    // General toggle
+    $.get('#Choice2').append($.make('div #Blink').prop(
+      {innerText: 'Blink'}));
+    let blink = new $toggle.AnimHide($.get('#Blink'), 'on', 'off', .3);
+    setInterval(() => { blink.toggle(); }, 2e3);
+
+    // Style manager
+    $.get('#Choice3').append($.make('div #Rainbow .a').prop(
+      {innerText: 'Rainbow'}));
+    setInterval(() => {
+      $.get('#Rainbow')._s.nextChoice(['a', 'b', 'c', 'd', 'e', 'f']);
+    }, 1e3);
 
   </script>
 </html>

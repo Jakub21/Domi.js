@@ -1,9 +1,11 @@
 const ObjectShpInsert = require('./ObjectShpInsert');
+const StyleManager = require('./StyleManager');
 
 module.exports = class DomiObject extends ObjectShpInsert {
   constructor(elm) {
     super();
     this.elm = elm
+    this._s = new StyleManager(elm);
   }
   prop(config={}) {
     for (let [key, val] of Object.entries(config)) {
