@@ -4,11 +4,31 @@ Object oriented DOM manipulation package.
 
 
 
-# Domi objects
+(see `./demo` for examples)
+
+# Setup
+
+#### Install the package
+
+The package is available on the NPM.
+
+`npm install @jakub21/domi`
+
+#### Setup 
+
+The package exposes the path to the bundled file. Use any server setup to make it accessible from the client (for example `express`).
+
+```javascript
+const domiBundlePath = require('@jakub21/domi').path;
+```
+
+# API
+
+## Domi objects
 
 This is the core of the Domi package. Everything in this section is contained in a global object named simply `$`.
 
-## `$.get(query, parent)`
+### `$.get(query, parent)`
 Creates new `DomiObject` from an existing DOM object. By default `parent` is the `document`. Query is passed to the native `querySelector` method.
 
 ```javascript
@@ -21,7 +41,7 @@ $.get('.fullWidth');
 ```
 returns wrapper of first existing element with class `fullWidth`.
 
-## `$.getArr(query, parent)`
+### `$.getArr(query, parent)`
 The same as `$.get` but creates an array of `DomiObject`s. Query is passed to the native `querySelectorAll` method.
 
 ```javascript
@@ -29,7 +49,7 @@ $.getArr('.fullWidth');
 ```
 returns array of wrappers of all existing elements with class `fullWidth`.
 
-## `$.make(makeData)`
+### `$.make(makeData)`
 Creates new DOM element and its `DomiObject` wrapper. `makeData` is a string with general information about the element. Tag name is required and must be the first word. Object's `id` and `class` can be defined by adding `#` and `.` prefixed words correspondingly. Additionally, bool flags can be set to true by adding their names prefixed by `!`.
 
 ```javascript
@@ -37,7 +57,7 @@ $.make('div #Content .fullWidth .dark !hidden');
 ```
 Creates a `div` tag with ID `Content`, classes `fullWidth` and `dark` and sets `hidden` property to `true`. The function then returns the element's `DomiObject` wrapper.
 
-## `DomiObject`
+### `DomiObject`
 Wraps DOM objects, providing chainable manipulation methods.
 
 ```javascript
@@ -94,7 +114,7 @@ dobj.onk('click', kb, 'a', myFunc);
 ##### `onkIns(domEventKey, keyboard, keyName, callback)`
 Same as `on` but additionally creates case-insensitive keyboard binding.
 
-## `DomiObject` - SHP Methods
+### `DomiObject` - SHP Methods
 For these methods to work you need `shp.js` to be included in your project.
 
 ##### `appendShp(shp)`
@@ -113,7 +133,7 @@ Compile provided SHP code and insert created nodes before the element.
 ##### `afterShp(shp)`
 Compile provided SHP code and insert created nodes after the element.
 
-## `StyleManager`
+### `StyleManager`
 
 Each `DomiObject` has a `StyleManager` attached as a `_s` property. All its methods are chainable.
 
@@ -177,7 +197,7 @@ Finds currently chosen class in the `choices` array, removes it and adds the nex
 sm.nextChoice(['red', 'green', 'blue']);
 ```
 
-# Keyboard
+## Keyboard
 
 Handles keyboard bindings.
 
@@ -215,7 +235,7 @@ kb.bindIns('E', func);
 kb.bindIns('e', func);
 ```
 
-# Toggles (general)
+## Toggles (general)
 
 This set of classes is responsible for dynamically changing element properties. Everything in this section is contained in a global object named `$toggle`.
 
@@ -227,7 +247,7 @@ General toggles switch between `on` and `off` state. The methods below are share
 
 ##### `toggle()`
 
-## `Hide`
+### `Hide`
 
 ```javascript
 var tg = new $toggle.Hide(dobj);
@@ -239,7 +259,7 @@ Shows and hides attached element by changing its `hidden` property.
 
 `off` -hidden
 
-## `CssClass`
+### `CssClass`
 
 ```javascript
 var tg = new $toggle.CssClass(dobj, onClass, offClass);
@@ -251,7 +271,7 @@ Adds different CSS classes to the attached element depending on the state.
 
 `off` - add `offClass` to the element
 
-## `AnimHide`
+### `AnimHide`
 
 ```javascript
 var tg = new $toggle.AnimHide(dobj, onClass, offClass, delay);
@@ -263,11 +283,11 @@ Combination of `Hide` and `CssClass`. Toggling is delayed so that smooth animati
 
 `off` - add `offClass` and, after the delay, hide the element.
 
-# Toggles (other)
+## Toggles (other)
 
 Other, more complex toggles.
 
-## `SingleChoice`
+### `SingleChoice`
 
 ```javascript
 var sc = new $toggle.SingleChoice(toggleClass, ...defaultOptions);
