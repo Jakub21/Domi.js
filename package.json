@@ -4,13 +4,16 @@
   "description": "Object oriented DOM manipulation package.",
   "main": "index.js",
   "scripts": {
-    "build": "browserify ./index.js -o ./build/Domi.js -v",
-    "watch": "watchify ./index.js -o ./build/Domi.js -v"
+    "build": "browserify ./webIndex.js -o ./build/Domi.js -v",
+    "watch": "watchify ./webIndex.js -o ./build/Domi.js -v"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jakub21/Domi.js.git"
   },
   "author": "Jakub21",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^17.0.0"
+  }
 }
