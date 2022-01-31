@@ -1,0 +1,53 @@
+body {
+  margin: 1rem;
+  background-color: #111;
+  color: #FFF;
+  font-family: sans-serif;
+  font-size: 1.15rem;
+}
+
+#Menu {
+  padding: .5em;
+  margin-bottom: .5em;
+  background-color: #BBB;
+  color: #000;
+}
+button {
+  font-size: inherit;
+  font-family: inherit;
+}
+.Choice {
+  position: relative;
+  transition: all .3s ease;
+  padding: 1em;
+  background-color: #222;
+}
+
+#Blink {
+  transition: all .3s ease;
+}
+.on {
+  top: 0;
+}
+.off {
+  top: 3em;
+  opacity: 0;
+}
+
+#Rainbow {
+  transition: color 1s linear;
+}
+.a { color: #F00; }
+.b { color: #FF0; }
+.c { color: #0F0; }
+.d { color: #0FF; }
+.e { color: #88F; }
+.f { color: #F0F; }
+
+#InnerChoice1 {
+  padding: .5em; margin: .5em;
+  background-color: #444;
+}
+#InnerChoice1 p {
+  color: #F80;
+}
