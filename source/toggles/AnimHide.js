@@ -3,6 +3,7 @@ const _Toggle = require('./_Toggle');
 module.exports = class AnimHide extends _Toggle {
   constructor(elm, onClass, offClass, delay) {
     super(elm);
+    this.state = !elm.hidden;
     this.onClass = onClass;
     this.offClass = offClass;
     this.delay = delay * 1e3;

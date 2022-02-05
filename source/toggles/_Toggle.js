@@ -2,7 +2,7 @@
 module.exports = class _Toggle {
   constructor(elm) {
     this.elm = elm;
-    this.state = !elm.hidden;
+    this.state = true;
   }
   toggle() {
     if (this.state) this.off();
