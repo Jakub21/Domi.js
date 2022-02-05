@@ -25,7 +25,7 @@ let versionMatch = () => {
 
 fs.stat(buildFile, (err) => {
   if (err == null) {
-    if (!versionMatch()) return;
+    if (versionMatch()) return;
   }
   buildPackage();
 });
