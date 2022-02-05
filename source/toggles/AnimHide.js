@@ -14,10 +14,12 @@ module.exports = class AnimHide extends _Toggle {
       this.elm._s.choice(this.onClass, [this.onClass, this.offClass]);
     }, this.delay);
     this.elm.prop({hidden:false});
+    return this;
   }
   off() {
     super.off();
     this.elm._s.choice(this.offClass, [this.onClass, this.offClass]);
     setTimeout(() => { this.elm.prop({hidden:true}); }, this.delay);
+    return this;
   }
 }

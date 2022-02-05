@@ -9,9 +9,11 @@ module.exports = class CssClass extends _Toggle {
   on() {
     super.on();
     this.elm._s.choice(this.onClass, [this.onClass, this.offClass]);
+    return this;
   }
   off() {
     super.off();
     this.elm._s.choice(this.offClass, [this.onClass, this.offClass]);
+    return this;
   }
 }

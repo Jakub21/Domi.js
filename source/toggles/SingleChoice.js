@@ -10,16 +10,19 @@ module.exports = class SingleChoice {
   }
   enableOnDelay(seconds) {
     this.onDelay = seconds;
+    return this;
   }
   add(id, elm, ...options) {
     this.toggles[id] = new this._ToggleClass(elm,
       ...this.defaultOptions, ...options);
+    return this;
   }
   goto(id) {
     if (this.current == id) return;
     if (this.onDelay) this._goto_delay(id);
     else this._goto_instant(id);
     this.current = id;
+    return this;
   }
   _goto_delay(id) {
     for (let [tid, toggle] of Object.entries(this.toggles)) {
