@@ -287,6 +287,18 @@ Combination of `Hide` and `CssClass`. Toggling is delayed so that smooth animati
 
 Other, more complex toggles.
 
+### `Group`
+
+```javascript
+var gr = new $toggle.Group(...toggles);
+```
+
+Manages multiple toggles so that all are in the same state at all times. It has methods of general toggles.
+
+##### `add(other)`
+
+Adds another general toggle., Alternative for adding in the constructor.
+
 ### `SingleChoice`
 
 ```javascript
@@ -306,4 +318,3 @@ Turns on the toggle with specified `ID` and turns off all the others.
 ##### `enableOnDelay(seconds)`
 
 Delays turning on the toggle in all subsequent `goto` calls. Turning off other toggles is not affected.
-
