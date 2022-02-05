@@ -25,6 +25,7 @@
         $button[#Button1] { 1 | Core }
         $button[#Button2] { 2 | Blink }
         $button[#Button3] { 3 | Rainbow }
+        $button[#Button4] { 4 | Group }
       }
       $div[#Choices] {
         $div[#Choice1 .Choice] {
@@ -40,6 +41,10 @@
           $h2 {Choice 3 - Rainbow}
           $p { Demonstrate style manager }
         }
+        $div[#Choice4 .Choice] {
+          $h2 {Choice 4 - Group}
+          $p { Demonstrate toggle groups }
+        }
       }
     `);
 
@@ -49,12 +54,14 @@
     choice.add('first', $.get('#Choice1'));
     choice.add('second', $.get('#Choice2'));
     choice.add('third', $.get('#Choice3'));
+    choice.add('fourth', $.get('#Choice4'));
     choice.goto('first');
 
     let kb = new $.Keyboard();
     $.get('#Button1').onk('click', kb, '1', () => {choice.goto('first')});
     $.get('#Button2').onk('click', kb, '2', () => {choice.goto('second')});
     $.get('#Button3').onk('click', kb, '3', () => {choice.goto('third')});
+    $.get('#Button4').onk('click', kb, '4', () => {choice.goto('fourth')});
 
     // Core
     let inner1 = $.get('#InnerChoice1');
@@ -75,6 +82,19 @@
     setInterval(() => {
       $.get('#Rainbow')._s.nextChoice(['a', 'b', 'c', 'd', 'e', 'f']);
     }, 1e3);
+
+    // Toggle group
+    $.get('#Choice4').append($.make('div #Member1').prop(
+      {innerText: 'Group member 1'}))
+      .append($.make('div #Member2 .animated').prop(
+        {innerText: 'Group member 2'}))
+      .append($.make('div #Member3').prop(
+        {innerText: 'Group member 3'}));
+    let group = new $toggle.Group(
+      new $toggle.CssClass($.get('#Member1'), 'red', 'blue'),
+      new $toggle.AnimHide($.get('#Member2'), 'on', 'off', .3));
+    group.add(new $toggle.Hide($.get('#Member3')));
+    setInterval(() => { group.toggle(); }, 2e3);
 
   </script>
 </html>

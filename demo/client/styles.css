@@ -51,3 +51,20 @@ button {
 #InnerChoice1 p {
   color: #F80;
 }
+
+.red {
+  color: #F00;
+}
+.green {
+  color: #0F0;
+}
+.blue {
+  color: #36F;
+}
+
+#Choice4 .animated {
+  transition: opacity .3s ease;
+}
+#Choice4 .off {
+  opacity: 0;
+}
