@@ -17,6 +17,10 @@ module.exports = class SingleChoice {
       ...this.defaultOptions, ...options);
     return this;
   }
+  addToggle(id, toggle) {
+    this.toggles[id] = toggle;
+    return this;
+  }
   goto(id) {
     if (this.current == id) return;
     if (this.onDelay) this._goto_delay(id);

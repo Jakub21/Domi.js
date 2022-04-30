@@ -1,6 +1,6 @@
 {
   "name": "@jakub21/domi",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Object oriented DOM manipulation package.",
   "main": "index.js",
   "scripts": {

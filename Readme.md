@@ -311,6 +311,10 @@ Manages multiple toggles to that only one is turned on at any time. Can utilize 
 
 Creates toggle with the `dobj`, the default `...defaultOptions` from the constructor and `...options`. The `ID` is later used to choose the toggle.
 
+##### `addToggle(ID, toggle)`
+
+Adds new toggle. This method can be used when toggles more advanced than these created with the `add` method are required. The `ID` is later used to choose the toggle. Parameter `toggle` is instance of any general toggle (or with general methods).
+
 ##### `goto(ID)`
 
 Turns on the toggle with specified `ID` and turns off all the others.
