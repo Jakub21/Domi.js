@@ -3,7 +3,7 @@ const ObjectInsert = require('./ObjectInsert');
 module.exports = class ObjectShpInsert extends ObjectInsert {
   constructor() {
     super();
-    try {this.compiler = new ShpCompiler()}
+    try {this.compiler = new shp.Compiler()}
     catch(err) {}
   }
 
