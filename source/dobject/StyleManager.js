@@ -26,6 +26,11 @@ module.exports = class StyleManager {
     this.elm.classList.toggle(cc);
     return this;
   }
+  setAdded(cc, state) {
+    if (state) this.elm.classList.add(cc);
+    else this.elm.classList.remove(cc);
+    return this;
+  }
   choice(cc, allChoices) {
     for (let other of allChoices) {
       if (other == cc) this.add(other);
