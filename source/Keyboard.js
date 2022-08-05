@@ -13,13 +13,17 @@ module.exports = class Keyboard {
   }
   bindIns(keys, callback) {
     if (keys.constructor != Array) keys = [keys];
+    let allKeys = [...keys];
     for (let key of keys) {
       let keyU = key.toUpperCase();
-      if (keyU != key) keys.push(keyU);
       let keyL = key.toLowerCase();
-      if (keyL != key) keys.push(keyL);
+      if (keyL != key && keyU != key) allKeys.push(key); // named keys, ex. Escape
+      else {
+        allKeys.push(keyU);
+        allKeys.push(keyL);
+      }
     }
-    this.bind(keys, callback);
+    this.bind(allKeys, callback);
     return this;
   }
 }
