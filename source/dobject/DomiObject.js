@@ -20,6 +20,6 @@ module.exports = class DomiObject extends ObjectShpInsert {
   empty() {
     if (this.elm.lastChild === undefined) return;
     while (this.elm.lastChild) { this.elm.removeChild(this.elm.lastChild); }
-    return this.elm;
+    return this;
   }
 }
